@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diplomacy Board Game Testing</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimal-ui"/>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <h1 id="Title"><a href="https://media.wizards.com/2015/downloads/ah/diplomacy_rules.pdf">Diplomacy</a> Board Game Tester</h1>
+    <p class="BySubheader">Coded By:</p>
+    <p class="BySubheader"><a href="https://twitter.com/Baguette_Senpai">Antoine Boutin</a></p>
+    <!-- <p class="BySubheader">Designed By:</p>
+    <p class="BySubheader"><a href="https://twitter.com/Ziodyne__">Dionisios Papadopoulos</a></p> -->
+    <div id="errorMessage"></div>
+    <!-- <div class="radio">
+        <input class="radio__input" type="radio" value="option1" name="myRadio" id="myRadio1">
+        <label class="radio__label" for="myRadio1">Option 1</label>
+        <input class="radio__input" type="radio" value="option2" name="myRadio" id="myRadio2">
+        <label class="radio__label" for="myRadio2">Option 2</label>
+        <input class="radio__input" type="radio" value="option3" name="myRadio" id="myRadio3">
+        <label class="radio__label" for="myRadio3">Option 3</label>
+    </div> -->
+    <div id="FormsOpenClose" onclick="openCloseForm()"></div>
+    <div id="Forms">
+        <div class="Forms">
+            <h3>Units</h3>
+            <label for="armyRadio">Army:</label>
+            <input name="Unit_Radio" id="armyRadio" type="radio" value="Army">
+            <label for="fleetRadio">Fleet:</label>
+            <input name="Unit_Radio" id="fleetRadio" type="radio" value="Fleet">
+        </div>
+        <div class="Forms">
+            <h3>Great Powers</h3>
+            <label for="AustriaRadio">Austria:</label>
+            <input name="Great_Power_Radio" id="AustriaRadio" type="radio" value="Austria">
+            <label for="EnglandRadio">England:</label>
+            <input name="Great_Power_Radio" id="EnglandRadio" type="radio" value="England">
+            <label for="FranceRadio">France:</label>
+            <input name="Great_Power_Radio" id="FranceRadio" type="radio" value="France">
+            <label for="GermanyRadio">Germany:</label>
+            <input name="Great_Power_Radio" id="GermanyRadio" type="radio" value="Germany">
+            <label for="ItalyRadio">Italy:</label>
+            <input name="Great_Power_Radio" id="ItalyRadio" type="radio" value="Italy">
+            <label for="RussiaRadio">Russia:</label>
+            <input name="Great_Power_Radio" id="RussiaRadio" type="radio" value="Russia">
+            <label for="TurkeyRadio">Turkey:</label>
+            <input name="Great_Power_Radio" id="TurkeyRadio" type="radio" value="Turkey">
+        </div>
+        <div class="Forms">
+            <h3>Editing/Testing</h3>
+            <label for="addRadio">Add:</label>
+            <input name="Editing" id="addRadio" type="radio">
+            <label for="delRadio">Del:</label>
+            <input name="Editing" id="delRadio" type="radio">
+        </div>
+    </div>
+    <br/>
+    <label class="OrderText" for="moveTextbox">Orders (WIP):</label>
+    <div class="Order">
+        <textarea name="Editing" class="moveTextbox" id="moveTextbox" size="55"></textarea>
+    </div>
+    <button id="submitOrderBtn" class="SubmitOrder">Submit Order</button>
+    <div class="map" id="map">
+        <div class="map__image">
+            <svg id="svg" viewbox="0 0 610 557" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g>
+                    <a id="Norwegian_Sea" class="Sea">
+                    <path id="NWG" class="w" title="Norwegian Sea" d="M362,33 357,39 343,44 324,54 320,64 310,75 309,84 303,86 292,111 277,132 269,134 264,142 258,141 236,154 198,154 171,181 171,197 158,193 152,194 154,188 161,185 162,181 148,177 148,0 362,0z"/>
+                    </a>
+                    <text id="Norwegian_Sea_Text" x="220" y="70">NWG</text>
+
+                    <a id="North_Sea" class="Sea">
+                    <path id="NTH" class="w" title="North Sea" d="M171,197 171,181 198,154 236,154 237,160 233,167 231,180 233,186 229,192 231,201 241,209 241,224 248,224 245,237 211,237 211,301 173,301 165,293 163,226 163,239 168,246 170,252 169,265 166,269 140,197z"/>
+                    </a>
+                    <text id="North_Sea_Text" x="190" y="230">NTH</text>
+
+                    <a id="Switzerland">
+                    <path id="Swi" class="s" title="Switzerland" d="M209,363 208,367 194,382 197,385 203,379 207,386 213,387 221,385 227,390 229,385 243,388 245,384 241,378 234,374 234,366 232,363 225,362 222,365z"/>
+                    </a>
+                    <text x="215" y="378">Swi</text>
+
+                    <a id="Adriatic_Sea" class="Sea">
+                    <path id="ADR" class="w" title="Adriatic Sea" d="M322,480 297,456 300,453 290,453 278,443 272,424 260,417 261,401 270,398 276,399 275,403 278,410 282,401 286,402 289,418 306,436 331,454 331,477 335,480z"/>
+                    </a>
+                    <text id="Adriatic_Sea_Text" x="308" y="460">ADR</text>
+
+                    <a id="Aegean_Sea" class="Sea">
+                    <path id="AEG" class="w" title="Aegean Sea" d="M376,537 371,520 378,521 377,513 386,516 385,509 370,494 371,491 378,494 368,483 371,477 379,484 382,483 381,477 386,478 380,472 392,472 400,468 408,470 410,473 414,475 410,482 409,487 417,486 417,489 420,495 417,498 417,507 423,510 427,524 435,523 435,530 416,549 412,547 387,546 383,544z"/>
+                    </a>
+                    <text id="Aegean_Sea_Text" x="392" y="510">AEG</text>
+
+                    <a id="Albania" class="Unowned">
+                    <path id="Alb" class="l" title="Albania" d="M331,454 331,477 335,480 339,487 350,477 350,471 346,466 346,452 337,446 330,445z"/>
+                    </a>
+                    <text id="Albania_Text" x="333" y="460">Alb</text>
+
+                    <a id="Ankara" class="Turkey">
+                    <path id="Ank" class="l" title="Ankara" d="M555,438 551,437 520,441 514,438 511,440 502,433 481,438 470,447 464,457 468,461 468,479 466,491 473,491 490,480 501,482 508,480 531,460 546,462 555,460 557,449z"/>
+                    </a>
+                    <text id="Ankara_Text" x="510" y="455">Ank</text>
+
+                    <a id="Apulia" class="Italy">
+                    <path id="Apu" class="l" title="Apulia" d="M304,484 310,480 318,485 322,485 322,480 297,456 300,453 290,453 278,443 274,447 279,451 280,455 279,458 293,481z"/>
+                    </a>
+                    <text id="Apulia_Text" x="291" y="470">Apu</text>
+
+                    <a id="Armenia" class="Turkey">
+                    <path id="Arm" class="l" title="Armenia" d="M609,493 584,478 563,479 562,471 556,467 555,460 557,449 555,438 570,427 589,442 594,439 603,441 609,440z"/>
+                    </a>
+                    <text id="Armenia_Text" x="585" y="467">Arm</text>
+
+                    <a id="Baltic_Sea" class="Sea">
+                    <path id="BAL" class="w" title="Baltic Sea" d="M266,255 271,260 278,254 277,250 280,248 282,253 289,254 294,245 305,244 312,229 311,220 359,220 349,229 347,243 347,248 348,254 344,262 337,264 334,273 328,274 326,265 314,266 307,273 294,275 286,274 287,267 280,266 266,275 261,274 260,269 256,266 256,263 254,255z"/>
+                    </a>
+                    <text id="Baltic_Sea_Text" x="308" y="260">BAL</text>
+
+                    <a id="Barents_Sea" class="Sea">
+                    <path id="BAR" class="w" title="Barents Sea" d="M540 0 535,9 530,6 517,19 516,33 513,38 513,23 507,20 505,26 499,33 492,48 495,58 488,60 479,57 477,55 481,50 473,43 466,45 472,62 478,66 478,74 472,72 468,74 457,91 469,100 467,106 462,109 444,101 442,110 447,115 454,119 452,122 434,118 426,103 426,94 414,88 412,83 445,84 457,79 459,66 453,61 417,47 405,49 401,45 397,48 391,47 395,41 394,38 384,33 382,40 380,33 377,31 374,38 371,33 366,42 366,33 362,33 362,0z"/>
+                    </a>
+                    <text id="Barents_Sea_Text" x="440" y="15">BAR</text>
+
+                    <a id="Belgium" class="Unowned">
+                    <path id="Bel" class="l" title="Belgium" d="M191,299 194,303 206,306 205,311 208,315 210,326 205,331 192,323 184,315 169,311 173,301z"/>
+                    </a>
+                    <text id="Belgium_Text" x="192" y="321">Bel</text>
+
+                    <a id="Berlin" class="Germany">
+                    <path id="Ber" class="l" title="Berlin" d="M294,275 286,274 287,267 280,266 266,275 266,283 262,287 264,293 261,296 263,310 288,305 296,300 297,296 292,290z"/>
+                    </a>
+                    <text id="Berlin_Text" x="272" y="292">Ber</text>
+
+                    <a id="Black_Sea" class="Sea">
+                    <path id="BLA" class="w" title="Black Sea" d="M440,458 430,455 426,450 422,441 425,427 429,426 430,423 432,409 439,404 438,397 446,378 459,375 461,377 459,379 465,383 476,381 478,383 472,385 468,392 477,396 477,401 486,404 488,397 494,396 497,392 507,389 506,384 494,387 485,378 503,364 526,351 527,354 514,365 517,371 520,371 515,384 511,383 510,386 517,393 528,394 554,406 567,408 573,417 570,427 555,438 551,437 520,441 514,438 511,440 502,433 481,438 470,447 464,457 442,460z"/>
+                    </a>
+                    <text id="Black_Sea_Text" x="500" y="418">BLA</text>
+
+                    <a id="Bohemia" class="Austria">
+                    <path id="Boh" class="l" title="Bohemia" d="M281,356 276,346 268,343 264,329 266,325 278,326 288,321 297,322 311,334 314,332 321,339 322,347 316,348 303,346 295,349 292,357z"/>
+                    </a>
+                    <text id="Bohemia_Text" x="283" y="347">Boh</text>
+
+                    <a id="Brest" class="France">
+                    <path id="Bre" class="l" title="Brest" d="M150,319 144,318 142,312 136,310 136,326 124,323 122,318 102,317 100,322 103,328 109,329 123,344 122,350 123,357 128,363 146,365 146,337 148,329z"/>
+                    </a>
+                    <text id="Brest_Text" x="130" y="345">Bre</text>
+
+                    <a id="Budapest" class="Austria">
+                    <path id="Bud" class="l" title="Budapest" d="M394,376 395,382 401,385 406,396 401,402 387,402 367,406 365,412 360,413 342,410 338,412 335,410 332,410 323,408 321,398 311,394 308,383 311,375 322,370 335,354 337,350 350,347 360,351 368,353 377,360 378,363 384,365z"/>
+                    </a>
+                    <text id="Budapest_Text" x="350" y="390">Bud</text>
+
+                    <a id="Burgundy" class="France">
+                    <path id="Bur" class="l" title="Burgundy" d="M192,323 205,331 204,338 211,346 213,352 209,363 208,367 194,382 178,381 178,390 173,396 168,395 163,387 165,383 158,380 156,374 165,365 185,344 188,332z"/>
+                    </a>
+                    <text id="Burgundy_Text" x="185" y="371">Bur</text>
+
+                    <a id="Clyde" class="England">
+                    <path id="Cly" class="l" title="Clyde" d="M138,214 130,208 129,197 139,189 140,182 148,177 162,181 161,185 154,188 152,194 146,200 144,213z"/>
+                    </a>
+                    <text id="Clyde_Text" x="133" y="201">Cly</text>
+
+                    <a id="Eastern_Mediterranean" class="Sea">
+                    <path id="EAS" class="w" title="Eastern Mediterranean" d="M435,530 441,526 447,528 453,534 464,531 466,521 475,520 485,528 491,530 505,526 511,514 520,517 527,508 530,509 525,518 526,530 532,535 528,559 400,559 400,554 414,552 416,549z"/>
+                    </a>
+                    <text id="Eastern_Mediterranean_Text" x="455" y="550">EAS</text>
+
+                    <a id="Edinburgh" class="England">
+                    <path id="Edi" class="l" title="Edinburgh" d="M152,194 158,193 171,197 170,202 165,210 158,214 151,215 157,216 161,218 163,226 155,228 145,217 144,213 146,200z"/>
+                    </a>
+                    <text id="Edinburgh_Text" x="152" y="202">Edi</text>
+
+                    <a id="English_Channel" class="Sea">
+                    <path id="ENG" class="w" title="English Channel" d="M173,301 169,311 153,315 155,320 150,319 144,318 142,312 136,310 136,326 124,323 122,318 102,317 88,303 100,291 110,292 120,295 124,291 134,294 147,295 160,298 168,296z"/>
+                    </a>
+                    <text id="English_Channel_Text" x="135" y="306">ENG</text>
+
+                    <a id="Finland" class="Russia">
+                    <path id="Fin" class="l" title="Finland" d="M362,107 368,108 372,120 366,121 359,136 345,151 347,160 350,165 348,178 349,184 357,186 365,191 384,185 402,177 412,161 410,152 414,147 410,130 402,118 401,110 392,92 393,73 387,68 388,61 386,58 388,54 379,48 370,49 369,61 355,62 346,54 342,61 356,71z"/>
+                    </a>
+                    <text id="Finland_Text" x="375" y="160">Fin</text>
+
+                    <a id="Galicia" class="Austria">
+                    <path id="Gal" class="l" title="Galicia" d="M333,330 341,330 344,332 353,327 356,323 361,324 367,329 374,327 379,324 383,327 385,332 399,338 404,354 403,360 404,371 394,376 384,365 378,363 377,360 368,353 360,351 350,347 337,350 329,346 322,347 321,339 322,347 321,339 325,340 329,338z"/>
+                    </a>
+                    <text id="Galicia_Text" x="355" y="343">Gal</text>
+
+                    <a id="Gascony" class="France">
+                    <path id="Gas" class="l" title="Gascony" d="M128,363 121,382 122,384 112,399 113,407 123,412 134,417 135,414 142,417 149,403 157,397 168,395 163,387 165,383 158,380 156,374 149,372 146,365z"/>
+                    </a>
+                    <text id="Gascony_Text" x="130" y="400">Gas</text>
+
+                    <a id="Greece" class="Unowned">
+                    <path id="Gre" class="l" title="Greece" d="M339,487 346,498 350,498 347,500 352,508 367,507 371,511 355,510 350,514 357,521 359,533 360,528 367,536 368,531 376,537 371,520 378,521 377,513 386,516 385,509 370,494 371,491 378,494 368,483 371,477 379,484 382,483 381,477 386,478 380,472 392,472 388,460 376,464 369,464 361,467 356,471 350,471 350,477z"/>
+                    </a>
+                    <text id="Greece_Text" x="352" y="490">Gre</text>
+
+                    <a id="Gulf_of_Lyon" class="Sea">
+                    <path id="LYO" class="w" title="Gulf of Lyon" d="M115,469 110,461 124,444 131,439 146,438 157,432 158,425 158,418 169,412 176,417 188,422 198,421 211,416 222,410 233,415 238,431 224,431 221,434 211,436 213,451 218,454 218,458 214,461 206,462 205,466 154,466 148,463 142,469z"/>
+                    </a>
+                    <text id="Gulf_of_Lyon_Text" x="170" y="457">LYO</text>
+
+                    <a id="Gulf_of_Bothnia" class="Sea">
+                    <path id="BOT" class="w" title="Gulf of Bothnia" d="M311,220 314,209 322,206 328,203 331,193 326,183 320,182 321,161 330,146 343,138 351,128 347,121 349,112 355,104 362,107 368,108 372,120 366,121 359,136 345,151 347,160 350,165 348,178 349,184 357,186 365,191 384,185 402,177 403,183 411,184 414,187 408,187 400,192 399,197 387,196 371,198 369,202 365,204 368,210 372,213 373,221 377,227 373,229 366,228 359,220z"/>
+                    </a>
+                    <text id="Gulf_of_Bothnia_Text" x="328" y="175">BOT</text>
+
+                    <a id="Helgoland_Bight" class="Sea">
+                    <path id="HEL" class="w" title="Helgoland Bight" d="M245,237 243,247 244,254 243,257 245,263 244,270 244,273 235,277 234,274 230,273 226,275 211,274 211,237z"/>
+                    </a>
+                    <text id="Helgoland_Bight_Text" x="220" y="265">HEL</text>
+
+                    <a id="Holland" class="Unowned">
+                    <path id="Hol" class="l" title="Holland" d="M226,275 227,280 225,292 220,298 215,297 213,302 210,313 208,315 205,311 206,306 194,303 191,299 198,289 205,276 205,279 207,279 211,274z"/>
+                    </a>
+                    <text id="Holland_Text" x="210" y="290">Hol</text>
+
+                    <a id="Ionian_Sea" class="Sea">
+                    <path id="ION" class="w" title="Ionian Sea" d="M289,511 290,514 295,515 308,500 311,491 304,484 310,480 318,485 322,485 322,480 335,480 339,487 346,498 350,498 347,500 352,508 367,507 371,511 355,510 350,514 357,521 359,533 360,528 367,536 368,531 376,537 383,544 380,547 383,550 400,554 400,559 232,559 234,551 232,544 225,535 231,531 236,524 247,513 258,519 273,531 281,532 282,521 285,513 285,511z"/>
+                    </a>
+                    <text id="Ionian_Sea_Text" x="315" y="520">ION</text>
+
+                    <a id="Irish_Sea" class="Sea">
+                    <path id="IRI" class="w" title="Irish Sea" d="M100,291 112,287 122,281 130,282 127,276 119,272 116,272 115,265 128,262 126,256 121,257 132,250 135,250 139,240 136,229 130,227 120,227 110,232 109,246 98,259 87,257 70,261 58,273 88,303z"/>
+                    </a>
+                    <text id="Irish_Sea_Text" x="95" y="270">IRI</text>
+
+                    <a id="Liverpool" class="England">
+                    <path id="Lvp" class="l" title="Liverpool" d="M128,262 126,256 121,257 132,250 135,250 139,240 136,229 130,227 130,223 138,217 138,214 144,213 145,217 155,228 155,239 151,248 150,264 143,262z"/>
+                    </a>
+                    <text id="Liverpool_Text" x="138" y="230">Lvp</text>
+
+                    <a id="Livonia" class="Russia">
+                    <path id="Lvn" class="l" title="Livonia" d="M369,202 365,204 368,210 372,213 373,221 377,227 373,229 366,228 359,220 349,229 347,243 354,251 356,261 362,260 367,265 365,281 372,283 379,290 389,285 392,278 404,275 405,239 409,228 405,217 394,205 382,206 372,205z"/>
+                    </a>
+                    <text id="Livonia_Text" x="380" y="260">Lvn</text>
+
+                    <a id="London" class="England">
+                    <path id="Lon" class="l" title="London" d="M166,269 168,270 171,268 177,270 178,274 176,283 165,293 172,294 168,296 160,298 147,295 145,281 150,277 153,271z"/>
+                    </a>
+                    <text id="London_Text" x="160" y="280">Lon</text>
+
+                    <a id="Marseilles" class="France">
+                    <path id="Mar" class="l" title="Marseilles" d="M142,417 149,403 157,397 168,395 173,396 178,390 178,381 194,382 197,385 203,379 207,386 204,390 207,396 201,399 204,402 203,410 211,416 198,421 188,422 176,417 169,412 158,418 158,425 154,427z"/>
+                    </a>
+                    <text id="Marseilles_Text" x="173" y="412">Mar</text>
+
+                    <a id="Mid_Atlantic_Ocean" class="Sea">
+                    <path id="MAO" class="w" title="Mid-Atlantic_Ocean" d="M102,317 100,322 103,328 109,329 123,344 122,350 123,357 128,363 121,382 122,384 112,399 101,396 96,397 72,384 59,381 54,375 48,374 46,378 39,375 33,381 35,384 32,396 30,406 17,427 14,427 10,433 13,440 15,441 12,450 13,454 8,462 19,469 27,468 33,475 34,484 37,490 37,495 33,496 17,518 0,520 0,273 58,273z"/>
+                    </a>
+                    <text id="Mid_Atlantic_Ocean_Text" x="50" y="355">MAO</text>
+
+                    <a id="Moscow" class="Russia">
+                    <path id="Mos" class="l" title="Moscow" d="M609,117 598,132 573,143 564,159 534,164 515,169 489,184 476,183 458,194 456,207 457,210 451,213 447,209 439,211 428,225 421,229 409,228 405,239 404,275 392,278 389,285 379,290 386,309 390,306 456,292 468,295 477,289 494,295 505,280 516,286 526,287 533,283 549,284 554,304 564,305 569,321 597,330 609,330z"/>
+                    </a>
+                    <text id="Moscow_Text" x="460" y="265">Mos</text>
+
+                    <a id="Munich" class="Germany">
+                    <path id="Mun" class="l" title="Munich" d="M234,366 243,370 246,369 250,371 267,368 271,370 269,362 275,362 281,356 276,346 268,343 264,329 266,325 278,326 288,321 284,314 288,305 263,310 243,322 237,322 219,344 211,346 213,352 209,363 222,365 225,362 232,363z"/>
+                    </a>
+                    <text id="Munich_Text" x="235" y="360">Mun</text>
+
+                    <a id="Naples" class="Italy">
+                    <path id="Nap" class="l" title="Naples" d="M271,464 276,474 290,487 294,502 289,511 290,514 295,515 308,500 311,491 304,484 293,481 279,458z"/>
+                    </a>
+                    <text id="Naples_Text" x="293" y="493">Nap</text>
+
+                    <a id="North_Atlantic_Ocean" class="Sea">
+                    <path id="NAO" class="w" title="North Atlantic Ocean" d="M70,261 64,250 67,242 71,245 81,234 74,228 80,225 78,218 82,217 89,220 94,220 95,218 94,216 97,216 101,212 110,212 119,217 120,227 130,227 130,223 138,217 138,214 130,208 129,197 139,189 140,182 148,177 148,0 0,0 0,273 58,273z"/>
+                    </a>
+                    <text id="North_Atlantic_Ocean_Text" x="65" y="120">NAO</text>
+
+                    <a id="North_Africa" class="Unowned">
+                    <path id="Naf" class="l" title="North Africa" d="M203,520 179,515 169,518 150,511 117,509 106,511 99,515 89,512 84,518 79,520 68,516 68,511 64,514 46,509 42,502 41,494 37,495 33,496 17,518 0,520 0,559 195,559 197,527z"/>
+                    </a>
+                    <text id="North_Africa_Text" x="130" y="536">Naf</text>
+
+                    <a id="Norway" class="Unowned">
+                    <path id="Nwy" class="l" title="Norway" d="M397,48 391,47 395,41 394,38 384,33 382,40 380,33 377,31 374,38 371,33 366,42 366,33 362,33 357,39 343,44 324,54 320,64 310,75 309,84 303,86 292,111 277,132 269,134 264,142 258,141 236,154 237,160 233,167 231,180 233,186 229,192 231,201 241,209 246,210 266,201 270,193 275,203 279,204 287,177 285,170 290,164 292,133 301,132 300,126 309,115 308,104 311,101 324,71 332,74 330,64 341,65 342,61 346,54 355,62 369,61 370,49 379,48 388,54 386,58 388,61z"/>
+                    </a>
+                    <text id="Norway_Text" x="250" y="175">Nwy</text>
+
+                    <a id="Paris" class="France">
+                    <path id="Par" class="l" title="Paris" d="M146,365 149,372 156,374 165,365 185,344 188,332 172,328 165,331 159,331 148,329 146,337z"/>
+                    </a>
+                    <text id="Paris_Text" x="155" y="358">Par</text>
+
+                    <a id="Picardy" class="France">
+                    <path id="Pic" class="l" title="Picardy" d="M169,311 153,315 155,320 150,319 148,329 159,331 165,331 172,328 188,332 192,323 184,315z"/>
+                    </a>
+                    <text id="Picardy_Text" x="168" y="326">Pic</text>
+
+                    <a id="Piedmont" class="Italy">
+                    <path id="Pie" class="l" title="Piedmont" d="M207,386 204,390 207,396 201,399 204,402 203,410 211,416 222,410 233,415 236,411 233,404 246,392 243,388 229,385 227,390 221,385 213,387z"/>
+                    </a>
+                    <text id="Piedmont_Text" x="215" y="408">Pie</text>
+
+                    <a id="Portugal" class="Unowned">
+                    <path id="Por" class="l" title="Portugal" d="M32,396 30,406 17,427 14,427 10,433 13,440 15,441 12,450 13,454 8,462 19,469 27,468 36,457 34,447 40,441 37,431 42,432 52,412 61,411 62,407 55,400 42,399 43,395z"/>
+                    </a>
+                    <text id="Portugal_Text" x="22" y="440">Por</text>
+
+                    <a id="Prussia" class="Germany">
+                    <path id="Pru" class="l" title="Prussia" d="M347,243 347,248 348,254 344,262 337,264 334,273 328,274 326,265 314,266 307,273 294,275 292,290 297,296 296,300 320,303 324,299 326,292 341,287 345,289 359,286 365,281 367,265 362,260 356,261 354,251z"/>
+                    </a>
+                    <text id="Prussia_Text" x="335" y="283">Pru</text>
+
+                    <a id="Rome" class="Italy">
+                    <path id="Rom" class="l" title="Rome" d="M247,442 248,447 256,458 271,464 279,458 280,455 279,451 274,447 263,434 250,438z"/>
+                    </a>
+                    <text id="Rome_Text" x="257" y="452">Rom</text>
+
+                    <a id="Ruhr" class="Germany">
+                    <path id="Ruh" class="l" title="Ruhr" d="M213,302 210,313 208,315 210,326 205,331 204,338 211,346 219,344 237,322 243,322 241,316 232,308z"/>
+                    </a>
+                    <text id="Ruhr_Text" x="215" y="330">Ruh</text>
+
+                    <a id="Rumania" class="Unowned">
+                    <path id="Rum" class="l" title="Rumania" d="M403,360 404,371 394,376 395,382 401,385 406,396 401,402 387,402 367,406 365,412 367,421 370,425 375,423 382,427 390,425 398,427 404,422 410,420 422,420 430,423 432,409 439,404 438,397 427,399 422,382 423,376 414,372 411,361z"/>
+                    </a>
+                    <text id="Rumania_Text" x="410" y="415">Rum</text>
+
+                    <a id="Serbia" class="Unowned">
+                    <path id="Ser" class="l" title="Serbia" d="M365,412 360,413 342,410 338,412 335,410 332,410 330,416 331,424 327,429 330,437 337,446 346,452 346,466 350,471 356,471 361,467 369,464 365,461 371,456 366,439 371,438 368,433 365,425 367,421z"/>
+                    </a>
+                    <text id="Serbia_Text" x="350" y="450">Ser</text>
+
+                    <a id="Sevastopol" class="Russia">
+                    <path id="Sev" class="l" title="Sevastopol" d="M438,397 446,378 459,375 461,377 459,379 465,383 476,381 478,383 472,385 468,392 477,396 477,401 486,404 488,397 494,396 497,392 507,389 506,384 494,387 485,378 503,364 526,351 527,354 514,365 517,371 520,371 515,384 511,383 510,386 517,393 528,394 554,406 567,408 573,417 570,427 589,442 594,439 603,441 609,440 609,330 597,330 569,321 564,305 554,304 549,284 533,283 526,287 516,286 505,280 494,295 477,289 468,295 470,303 466,307 460,345 445,350 434,360 432,372 423,376 422,382 427,399z"/>
+                    </a>
+                    <text id="Sevastopol_Text" x="540" y="350">Sev</text>
+
+                    <a id="Silesia" class="Germany">
+                    <path id="Sil" class="l" title="Silesia" d="M288,321 297,322 311,334 314,332 321,339 325,340 329,338 333,330 326,327 323,322 320,303 296,300 288,305 284,314z"/>
+                    </a>
+                    <text id="Silesia_Text" x="304" y="325">Sil</text>
+
+                    <a id="Skagerrak" class="Sea">
+                    <path id="SKA" class="w" title="Skagerrak" d="M241,209 246,210 266,201 270,193 275,203 277,218 276,224 282,236 279,240 279,243 275,242 269,243 266,240 267,234 266,221 263,223 248,224 241,224z"/>
+                    </a>
+                    <text id="Skagerrak_Text" x="255" y="220">SKA</text>
+
+                    <a id="Smyrna" class="Turkey">
+                    <path id="Smy" class="l" title="Smyrna" d="M417,489 420,495 417,498 417,507 423,510 427,524 435,523 435,530 441,526 447,528 453,534 464,531 466,521 475,520 485,528 491,530 505,526 511,514 520,517 527,508 530,509 536,494 545,486 555,484 563,479 562,471 556,467 555,460 546,462 531,460 508,480 501,482 490,480 473,491 466,491 452,495 432,493 423,487z"/>
+                    </a>
+                    <text id="Smyrna_Text" x="460" y="510">Smy</text>
+
+                    <a id="Sweden" class="Unowned">
+                    <path id="Swe" class="l" title="Sweden" d="M275,203 277,218 276,224 282,236 279,240 279,243 282,253 289,254 294,245 305,244 312,229 311,220 314,209 322,206 328,203 331,193 326,183 320,182 321,161 330,146 343,138 351,128 347,121 349,112 355,104 362,107 356,71 342,61 341,65 330,64 332,74 324,71 311,101 308,104 309,115 300,126 301,132 292,133 290,164 285,170 287,177 279,204z"/>
+                    </a>
+                    <text id="Sweden_Text" x="300" y="170">Swe</text>
+
+                    <a id="Syria" class="Turkey">
+                    <path id="Syr" class="l" title="Syria" d="M530,509 536,494 545,486 555,484 563,479 584,478 609,493 609,559 528,559 532,535 526,530 525,518z"/>
+                    </a>
+                    <text id="Syria_Text" x="570" y="535">Syr</text>
+
+                    <a id="Trieste" class="Austria">
+                    <path id="Tri" class="l" title="Trieste" d="M276,399 275,403 278,410 282,401 286,402 289,418 306,436 331,454 330,445 337,446 330,437 327,429 331,424 330,416 332,410 323,408 321,398 311,394 308,383 299,385 294,380 289,385 276,386 279,389z"/>
+                    </a>
+                    <text id="Trieste_Text" x="305" y="425">Tri</text>
+
+                    <a id="Tunis" class="Unowned">
+                    <path id="Tun" class="l" title="Tunis" d="M232,559 234,551 232,544 225,535 231,531 236,524 233,523 224,527 223,518 218,516 212,517 208,521 203,520 197,527 195,559z"/>
+                    </a>
+                    <text id="Tunis_Text" x="210" y="555">Tun</text>
+
+                    <a id="Tuscany" class="Italy">
+                    <path id="Tus" class="l" title="Tuscany" d="M233,415 238,431 247,442 250,438 263,434 253,418 246,416 240,415 236,411z"/>
+                    </a>
+                    <text id="Tuscany_Text" x="240" y="425">Tus</text>
+
+                    <a id="Tyrolia" class="Austria">
+                    <path id="Tyr" class="l" title="Tyrolia" d="M234,366 243,370 246,369 250,371 267,368 271,370 269,362 275,362 281,356 292,357 295,362 294,380 289,385 276,386 268,385 259,388 255,394 250,397 246,392 243,388 245,384 241,378 234,374z"/>
+                    </a>
+                    <text id="Tyrolia_Text" x="255" y="380">Tyr</text>
+
+                    <a id="Tyrrhenian_Sea" class="Sea">
+                    <path id="TYS" class="w" title="Tyrrhenian Sea" d="M238,431 247,442 248,447 256,458 271,464 276,474 290,487 294,502 289,511 285,511 285,508 276,510 263,510 257,507 252,508 247,513 236,524 233,523 224,527 223,518 218,516 218,490 220,490 224,468 222,458 218,458 218,454 223,450 225,444 225,436 224,431z"/>
+                    </a>
+                    <text id="Tyrrhenian_Sea_Text" x="245" y="495">TYS</text>
+
+                    <a id="Ukraine" class="Russia">
+                    <path id="Ukr" class="l" title="Ukraine" d="M383,327 385,332 399,338 404,354 403,360 411,361 414,372 423,376 432,372 434,360 445,350 460,345 466,307 470,303 468,295 456,292 390,306 386,309z"/>
+                    </a>
+                    <text id="Ukraine_Text" x="420" y="340">Ukr</text>
+
+                    <a id="Venice" class="Italy">
+                    <path id="Ven" class="l" title="Venice" d="M278,443 272,424 260,417 261,401 270,398 276,399 279,389 276,386 268,385 259,388 255,394 250,397 246,392 233,404 236,411 240,415 246,416 253,418 263,434 274,447z"/>
+                    </a>
+                    <text id="Venice_Text" x="245" y="407">Ven</text>
+
+                    <a id="Vienna" class="Austria">
+                    <path id="Vie" class="l" title="Vienna" d="M292,357 295,349 303,346 316,348 322,347 329,346 337,350 335,354 322,370 311,375 308,383 299,385 294,380 295,362z"/>
+                    </a>
+                    <text id="Vienna_Text" x="307" y="370">Vie</text>
+
+                    <a id="Wales" class="England">
+                    <path id="Wal" class="l" title="Wales" d="M100,291 112,287 122,281 130,282 127,276 119,272 116,272 115,265 128,262 143,262 150,264 153,271 150,277 145,281 147,295 134,294 124,291 120,295 110,292z"/>
+                    </a>
+                    <text id="Wales_Text" x="130" y="275">Wal</text>
+
+                    <a id="Warsaw" class="Russia">
+                    <path id="War" class="l" title="Warsaw" d="M333,330 326,327 323,322 320,303 324,299 326,292 341,287 345,289 359,286 365,281 372,283 379,290 386,309 383,327 379,324 374,327 367,329 361,324 356,323 353,327 344,332 341,330z"/>
+                    </a>
+                    <text id="Warsaw_Text" x="355" y="304">War</text>
+
+                    <a id="Western_Mediterranean" class="Sea">
+                    <path id="WES" class="w" title="Western Mediterranean" d="M37,490 47,488 52,489 60,486 78,491 83,494 86,485 90,483 98,484 107,474 113,473 115,469 142,469 150,471 154,466 205,466 206,476 204,485 208,492 212,492 217,489 218,490 218,516 212,517 208,521 203,520 179,515 169,518 150,511 117,509 106,511 99,515 89,512 84,518 79,520 68,516 68,511 64,514 46,509 42,502 41,494 37,495z"/>
+                    </a>
+                    <text id="Western_Mediterranean_Text" x="160" y="491">WES</text>
+
+                    <a id="Yorkshire" class="England">
+                    <path id="Yor" class="l" title="Yorkshire" d="M163,226 163,239 168,246 170,252 169,265 166,269 153,271 150,264 151,248 155,239 155,228z"/>
+                    </a>
+                    <text id="Yorkshire_Text" x="155" y="254">Yor</text>
+
+                    <a id="Kiel" class="Germany">
+                    <path id="Kie" class="l" title="Kiel" d="M244,254 243,257 245,263 244,270 244,273 235,277 234,274 230,273 226,275 227,280 225,292 220,298 215,297 213,302 232,308 241,316 243,322 263,310 261,296 264,293 262,287 266,283 266,275 261,274 260,269 256,266 256,263 254,255z"/>
+                    </a>
+                    <text id="Kiel_Text" x="237" y="285">Kie</text>
+
+                    <a id="Constantinople" class="Turkey">
+                    <path id="Con" class="l" title="Constantinople" d="M408,470 410,473 414,475 410,482 409,487 417,486 417,489 423,487 432,493 452,495 466,491 468,479 468,461 464,457 442,460 440,458 430,455 426,450 420,451 412,454 413,464z"/>
+                    </a>
+                    <path id="Con_Water" class="w" title="Constantinople_Water" d="M414,475 421,467 435,463 440,458 442,460 439,463 448,464 425,475z"/>
+                    <text id="Constantinople_Text" x="435" y="483">Con</text>
+
+                    <a id="Denmark" class="Unowned">
+                    <path id="Den" class="l" title="Denmark" d="M279,243 275,242 269,243 266,240 267,234 266,221 263,223 248,224 245,237 243,247 244,254 254,255 266,255 271,260 278,254 277,250 280,248z"/>
+                    </a>
+                    <path id="Den_Water" class="w" title="Denmark_Water" d="M269,243 268,246 263,247 266,255 254,255 257,247 266,240z"/>
+                    <text id="Denmark_Text" x="250" y="235">Den</text>
+
+                    <a id="Bulgaria" class="Unowned">
+                    <path id="Bulgaria_EC" class="l" title="Bulgaria (ec)" d="M413,464 412,454 420,451 426,450 422,441 425,427 429,426 430,423 422,420 410,420 404,422 398,427 390,425 382,427 375,423 370,425 367,421 365,425 368,433 371,438z"/>
+                    <path id="Bulgaria_SC" class="l" title="Bulgaria (sc)" d="M371,438 366,439 371,456 365,461 369,464 376,464 388,460 392,472 400,468 408,470 413,464 412,454z"/>
+                    </a>
+                    <text id="Bulgaria_Text" x="395" y="443">Bul</text>
+
+                    <a id="Spain" class="Unowned">
+                    <path id="Spain_NC" class="l" title="Spain (nc)" d="M134,417 123,412 113,407 112,399 101,396 96,397 72,384 59,381 54,375 48,374 46,378 39,375 33,381 35,384 32,396 43,395 42,399 55,400 62,407 61,411 52,412 42,432 37,431 40,441z"/>
+                    <path id="Spain_SC" class="l" title="Spain (sc)" d="M40,441 34,447 36,457 27,468 33,475 34,484 37,490 47,488 52,489 60,486 78,491 83,494 86,485 90,483 98,484 107,474 113,473 115,469 110,461 124,444 131,439 146,438 157,432 158,425 154,427 142,417 135,414 134,417 123,412z"/>
+                    </a>
+                    <text id="Spain_Text" x="85" y="450">Spa</text>
+
+                    <a id="St_Petersburg" class="Russia">
+                    <path id="St_Petersburg_NC" class="l" title="St Petersburg (nc)" d="M534,164 564,159 573,143 598,132 609,117 609,0 540,0 535,9 530,6 517,19 516,33 513,38 513,23 507,20 505,26 499,33 492,48 495,58 488,60 479,57 477,55 481,50 473,43 466,45 472,62 478,66 478,74 472,72 468,74 457,91 469,100 467,106 462,109 444,101 442,110 447,115 454,119 452,122 434,118 426,103 426,94 414,88 412,83 445,84 457,79 459,66 453,61 417,47 405,49 401,45 397,48 388,61 387,68 393,73 392,92 401,110 402,118 410,130 414,147z"/>
+                    <!--
+                    <polyline id="Stp_NC" title="St Petersburg (nc)" points="534,164 564,159 573,143 598,132 609,117 609,0 540 0 535,9 530,6 517,19 516,33 513,38 513,23 507,20 505,26 499,33 492,48 495,58 488,60 479,57 477,55 481,50 473,43 466,45 472,62
+                    478,66 478,74 472,72 468,74 457,91 469,100 467,106 462,109 444,101 442,110 447,115 454,119 452,122 434,118 426,103 426,94 414,88 412,83 445,84 457,79 459,66 453,61 417,47 405,49 401,45 397,48
+                    388,61 387,68 393,73 392,92 401,110 402,118 410,130 414,147"/> -->
+                    <path id="St_Petersburg_SC" class="l" title="St Petersburg (sc)" d="M414,147 410,152 412,161 402,177 403,183 411,184 414,187 408,187 400,192 399,197 387,196 371,198 369,202 372,205 382,206 394,205 405,217 409,228 421,229 428,225 439,211 447,209 451,213 457,210 456,207 458,194 476,183 489,184 515,169 534,164 564,159z"/>
+                    <!--
+                    <polyline id="Stp_SC" title="St Petersburg (sc)" points="414,147 410,152 412,161 402,177 403,183 411,184 414,187 408,187 400,192 399,197 387,196 371,198 369,202 372,205 382,206 394,205 405,217 409,228 421,229 428,225 439,211
+                    447,209 451,213 457,210 456,207 458,194 476,183 489,184 515,169 534,164 564,159"/> -->
+                    </a>
+                    <text id="St_Petersburg_Text" x="460" y="149">Stp</text>
+                </g>
+
+                <defs>
+
+                <g id="A">
+                    <path d="M9,-6 L2,0 M9,6 L0,0"/>
+                    <path d="M-11,-6 v4 h17 a2,2 0,0 0 0,-4z"/>
+                    <circle r="6"/>
+                </g>
+                <g id="F">
+                    <polygon points="-2,-3 10,-3 -2,-13"/>
+                    <polygon points="-12,-1 -6,5 6,5 12,-1"/>
+                </g>
+                <g id="sc"> <!-- colored SC -->
+                    <circle r="4"/>
+                </g>
+                <use id="SC" xlink:href="#sc" class="Unowned"/>
+                </defs>
+                </svg>
+        </div>
+        <div class="list__navigation">
+            <div id="mainbox" onclick="openCloseList()"></div>
+            <div id="menu" class="map__list">
+                <h1>Provinces</h1>
+                <ul>
+                    <h3>Austria</h3>
+                    <li><a href="http:google.com/?q=Bohemia" id="list-Bohemia">Bohemia</a></li>
+                    <li><a href="http:google.com/?q=Galicia" id="list-Galicia">Galicia</a></li>
+                    <li><a href="http:google.com/?q=Tyrolia" id="list-Tyrolia">Tyrolia</a></li>
+                    <li><a href="http:google.com/?q=Vienna" id="list-Vienna">&#10040;Vienna</a></li>
+                    <li><a href="http:google.com/?q=Budapest" id="list-Budapest">Budapest</a></li>
+                    <li><a href="http:google.com/?q=Trieste" id="list-Trieste">Trieste</a></li>
+                </ul>
+                <ul>
+                    <h3>England</h3>
+                    <li><a href="http:google.com/?q=Clyde" id="list-Clyde">Clyde</a></li>
+                    <li><a href="http:google.com/?q=Edinburgh" id="list-Edinburgh">Edinburgh</a></li>
+                    <li><a href="http:google.com/?q=Liverpool" id="list-Liverpool">Liverpool</a></li>
+                    <li><a href="http:google.com/?q=Yorkshire" id="list-Yorkshire">Yorkshire</a></li>
+                    <li><a href="http:google.com/?q=Wales" id="list-Wales">Wales</a></li>
+                    <li><a href="http:google.com/?q=London" id="list-London">London</a></li>
+                </ul>
+                <ul>
+                    <h3>France</h3>
+                    <li><a href="http:google.com/?q=Brest" id="list-Brest">Brest</a></li>
+                    <li><a href="http:google.com/?q=Picardy" id="list-Picardy">Picardy</a></li>
+                    <li><a href="http:google.com/?q=Paris" id="list-Paris">Paris</a></li>
+                    <li><a href="http:google.com/?q=Gascony" id="list-Gascony">Gascony</a></li>
+                    <li><a href="http:google.com/?q=Burgundy" id="list-Burgundy">Burgundy</a></li>
+                    <li><a href="http:google.com/?q=Marseilles" id="list-Marseilles">Marseilles</a></li>
+                </ul>
+                <ul>
+                    <h3>Germany</h3>
+                    <li><a href="http:google.com/?q=Ruhr" id="list-Ruhr">Ruhr</a></li>
+                    <li><a href="http:google.com/?q=Kiel" id="list-Kiel">Kiel</a></li>
+                    <li><a href="http:google.com/?q=Berlin" id="list-Berlin">Berlin</a></li>
+                    <li><a href="http:google.com/?q=Prussia" id="list-Prussia">Prussia</a></li>
+                    <li><a href="http:google.com/?q=Munich" id="list-Munich">Munich</a></li>
+                    <li><a href="http:google.com/?q=Silesia" id="list-Silesia">Silesia</a></li>
+                </ul>
+                <ul>
+                    <h3>Italy</h3>
+                    <li><a href="http:google.com/?q=Piedmont" id="list-Piedmont">Piedmont</a></li>
+                    <li><a href="http:google.com/?q=Venice" id="list-Venice">Venice</a></li>
+                    <li><a href="http:google.com/?q=Tuscany" id="list-Tuscany">Tuscany</a></li>
+                    <li><a href="http:google.com/?q=Rome" id="list-Rome">Rome</a></li>
+                    <li><a href="http:google.com/?q=Apulia" id="list-Apulia">Apulia</a></li>
+                    <li><a href="http:google.com/?q=Naples" id="list-Naples">Naples</a></li>
+                </ul>
+                <ul>
+                    <h3>Russia</h3>
+                    <li><a href="http:google.com/?q=Finland" id="list-Finland">Finland</a></li>
+                    <li><a href="http:google.com/?q=St_Petersburg" id="list-St_Petersburg">St Petersburg</a></li>
+                    <li><a href="http:google.com/?q=Livonia" id="list-Livonia">Livonia</a></li>
+                    <li><a href="http:google.com/?q=Moscow" id="list-Moscow">Moscow</a></li>
+                    <li><a href="http:google.com/?q=Warsaw" id="list-Warsaw">Warsaw</a></li>
+                    <li><a href="http:google.com/?q=Ukraine" id="list-Ukraine">Ukraine</a></li>
+                    <li><a href="http:google.com/?q=Sevastopol" id="list-Sevastopol">Sevastopol</a></li>
+                </ul>
+                <ul>
+                    <h3>Turkey</h3>
+                    <li><a href="http:google.com/?q=Constantinople" id="list-Constantinople">Constantinople</a></li>
+                    <li><a href="http:google.com/?q=Ankara" id="list-Ankara">Ankara</a></li>
+                    <li><a href="http:google.com/?q=Armenia" id="list-Armenia">Armenia</a></li>
+                    <li><a href="http:google.com/?q=Smyrna" id="list-Smyrna">Smyrna</a></li>
+                    <li><a href="http:google.com/?q=Syria" id="list-Syria">Syria</a></li>
+                </ul>
+                <ul>
+                    <h3>Unowned</h3>
+                    <li><a href="http:google.com/?q=Norway" id="list-Norway">Norway</a></li>
+                    <li><a href="http:google.com/?q=Sweden" id="list-Sweden">Sweden</a></li>
+                    <li><a href="http:google.com/?q=Denmark" id="list-Denmark">Denmark</a></li>
+                    <li><a href="http:google.com/?q=Holland" id="list-Holland">Holland</a></li>
+                    <li><a href="http:google.com/?q=Belgium" id="list-Belgium">Belgium</a></li>
+                    <li><a href="http:google.com/?q=Portugal" id="list-Portugal">Portugal</a></li>
+                    <li><a href="http:google.com/?q=Spain" id="list-Spain">Spain</a></li>
+                    <li><a href="http:google.com/?q=Rumania" id="list-Rumania">Rumania</a></li>
+                    <li><a href="http:google.com/?q=Serbia" id="list-Serbia">Serbia</a></li>
+                    <li><a href="http:google.com/?q=Bulgaria" id="list-Bulgaria">Bulgaria</a></li>
+                    <li><a href="http:google.com/?q=Albania" id="list-Albania">Albania</a></li>
+                    <li><a href="http:google.com/?q=Greece" id="list-Greece">Greece</a></li>
+                    <li><a href="http:google.com/?q=North_Africa" id="list-North_Africa">North Africa</a></li>
+                    <li><a href="http:google.com/?q=Tunis" id="list-Tunis">Tunis</a></li>
+                </ul>
+                <ul>
+                    <h3>Sea</h3>
+                    <li><a href="http:google.com/?q=North_Atlantic_Ocean" id="list-North_Atlantic_Ocean">North_Atlantic Ocean</a></li>
+                    <li><a href="http:google.com/?q=Norwegian_Sea" id="list-Norwegian_Sea">Norwegian Sea</a></li>
+                    <li><a href="http:google.com/?q=Barents_Sea" id="list-Barents_Sea">Barents Sea</a></li>
+                    <li><a href="http:google.com/?q=Irish_Sea" id="list-Irish_Sea">Irish Sea</a></li>
+                    <li><a href="http:google.com/?q=North_Sea" id="list-North_Sea">North Sea</a></li>
+                    <li><a href="http:google.com/?q=Skagerrak" id="list-Skagerrak">Skagerrak</a></li>
+                    <li><a href="http:google.com/?q=Gulf_of_Bothnia" id="list-Gulf_of_Bothnia">Gulf of Bothnia</a></li>
+                    <li><a href="http:google.com/?q=Helgoland_Bight" id="list-Helgoland_Bight">Helgoland Bight</a></li>
+                    <li><a href="http:google.com/?q=Baltic_Sea" id="list-Baltic_Sea">Baltic Sea</a></li>
+                    <li><a href="http:google.com/?q=Mid_Atlantic_Ocean" id="list-Mid_Atlantic_Ocean">Mid_Atlantic Ocean</a></li>
+                    <li><a href="http:google.com/?q=English_Channel" id="list-English_Channel">English Channel</a></li>
+                    <li><a href="http:google.com/?q=Gulf_of_Lyon" id="list-Gulf_of_Lyon">Gulf of Lyon</a></li>
+                    <li><a href="http:google.com/?q=Adriatic_Sea" id="list-Adriatic_Sea">Adriatic Sea</a></li>
+                    <li><a href="http:google.com/?q=Black_Sea" id="list-Black_Sea">Black Sea</a></li>
+                    <li><a href="http:google.com/?q=Western_Mediterranean" id="list-Western_Mediterranean">Western Mediterranean</a></li>
+                    <li><a href="http:google.com/?q=Tyrrhenian_Sea" id="list-Tyrrhenian_Sea">Tyrrhenian Sea</a></li>
+                    <li><a href="http:google.com/?q=Aegean_Sea" id="list-Aegean_Sea">Aegean Sea</a></li>
+                    <li><a href="http:google.com/?q=Ionian_Sea" id="list-Ionian_Sea">Ionian Sea</a></li>
+                    <li><a href="http:google.com/?q=Eastern_Mediterranean" id="list-Eastern_Mediterranean">Eastern Mediterranean</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script src="bot.js"></script>
+</body>
+</html>

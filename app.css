@@ -1,0 +1,362 @@
+body{
+    background-color: #181818;
+}
+
+.map {
+    overflow: hidden;
+}
+
+#Title{
+    color: #fff;
+    text-align: center;
+    font-size: 45px;
+    margin-bottom: 0px;
+}
+#Title a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.BySubheader{
+    color: #fff;
+    text-align: center;
+    margin-top: 0px;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+.BySubheader a{
+    color: white;
+    text-decoration: none;
+}
+.BySubheader a:hover{
+    color: #969696;
+}
+
+.radio{
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+#Forms{
+    overflow: hidden;
+    height: 234px;
+    width: 0px;
+    position: fixed;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #181818;
+    border-radius: 0px 5px 5px 0px;
+    transition: all 0.5s;
+}
+.Forms{
+    left: 0;
+    text-align: left;
+}
+.Forms:not(:last-child){
+    padding-bottom: 10px;
+    border-bottom: 1px solid #b9b9b9;
+}
+.Forms h3{
+    margin-top: 10px;;
+}
+
+#FormsOpenClose{
+    position: fixed;
+    cursor: pointer;
+    margin-top: 140px;
+    margin-left: 0px;
+    margin-bottom: 590px;
+    transition: all .5s;
+    width: 10px;
+    background-color: #646464;
+    border-radius: 5px 15px 15px 5px;
+    color: white;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transition: 0.5s;
+}
+#FormsOpenClose:hover{
+    background-color: #4d4d4d;
+}
+
+.radio__input{
+    display: none;
+}
+
+.radio__label{
+    padding: 8px 14px;
+    font-size: 14px;
+    font-family: sans-serif;
+    color: #fff;
+    background: #009578;
+    cursor: pointer;
+    transition:  0.1s;
+}
+
+.radio__label:not(:last-of-type){
+    border-right: 1px solid #006B56;
+}
+
+.radio__input:checked + .radio__label{
+    background: #006B56;
+}
+
+.test{
+    fill: #0000FF;
+    stroke:black;
+    stroke-linejoin: round;
+}
+.broken-test{
+    fill: #FF0000;
+    stroke:black;
+    stroke-linejoin: round;
+}
+
+.unit_identifier{
+    text-align: center;
+}
+
+.map__image{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    border: 3px solid #535353;
+    border-radius: 3px;
+    /* background-color: white; */
+}
+
+.map__image .is-active polyline{
+    fill:#757575;
+    transition: fill 0.3s;
+}
+
+.map__image .is-active path{
+    fill:#757575;
+    transition: fill 0.3s;
+}
+
+.map__image .is-active{
+    fill:#757575;
+}
+
+.map__image .is-adjacent-active polyline{
+    fill:#b7eebc;
+    transition: fill 0.3s;
+}
+
+.map__image .is-adjacent-active path{
+    fill:#b7eebc;
+    transition: fill 0.3s;
+}
+
+.map__image .is-adjacent-active{
+    fill:#b7eebc;
+    transition: fill 0.3s;
+}
+
+.map__image .is-adjacent-water-active polyline{
+    fill:#b4d8fd;
+    transition: fill 0.3s;
+}
+
+.map__image .is-adjacent-water-active path{
+    fill:#b4d8fd;
+    transition: fill 0.3s;
+}
+
+.l          {fill:#FFFFDD; stroke:black; stroke-linejoin:round; transition: fill 0.3s}
+.w		    {fill:#99CCFF; stroke:black; stroke-linejoin:round; transition: fill 0.3s}
+.s		    {fill:#DDDDDD; stroke:black; stroke-linejoin:round; transition: fill 0.3s}
+                
+text		{font-family:Arial,Helvetica,sans-serif; font-size:8px}
+
+.Unowned	{fill:#e6e69e; stroke:black; stroke-linejoin:round; transition: fill 0.3s}
+.Sea		{fill:#48a3ff; stroke:black; stroke-linejoin:round; transition: fill 0.3s}
+.Austria	{fill:#FF0000; stroke:black; transition: fill 0.3s}
+.England	{fill:#0000FF; stroke:black; transition: fill 0.3s}
+.France 	{fill:#00FFFF; stroke:black; transition: fill 0.3s}
+.Germany	{fill:#808080; stroke:black; transition: fill 0.3s}
+.Italy  	{fill:#00FF00; stroke:black; transition: fill 0.3s}
+.Russia 	{fill:#008000; stroke:black; transition: fill 0.3s}
+.Turkey 	{fill:#FFFF00; stroke:black; transition: fill 0.3s}
+
+.map__list{
+    overflow: hidden;
+    position: fixed;
+    text-align:right;
+    padding-top: 5px;
+    padding-right:10px;
+    margin: 10px 5px;
+    top: 0;
+    right:0;
+    bottom:0;
+    overflow-y: scroll;
+    background-color: #b9b9b9;
+    border-radius: 15px 5px 5px 15px;
+    width: 0px;
+    transition: 0.5s;
+}
+
+.map__list::-webkit-scrollbar{
+    margin-top: 0;
+    margin-left: 10px;
+    width: 10px;
+}
+.map__list::-webkit-scrollbar-track{
+    border-radius:5px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+}
+.map__list::-webkit-scrollbar-thumb{
+    border-radius:5px;
+    background-color: #969696;
+    transition: 0.3s;
+}
+.map__list::-webkit-scrollbar-thumb:hover{
+    background-color: #7a7a7a;
+    transition: 0.3s;
+}
+
+.map__list a{
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.map__list a.is-active{
+    padding: 2px 5px 2px 5px;
+    background-color: white;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.map__list h1{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.map__list h3{
+    color: #282828;
+    cursor: pointer;
+}
+.map__list h3:hover{
+    background-color: white;
+    border-radius: 3px;
+}
+
+.map__list li{
+    list-style: none;
+    color: #282828;
+}
+
+.map__list ul{
+    margin-top: 0px;
+}
+
+.map__list h3{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.OrderText{
+    text-align: center;
+    margin-left: 47%;
+    font-size: 20px;
+}
+.Order{
+    display: block;
+    margin-left: 38%;
+}
+.SubmitOrder{
+    margin-left: 38%;
+    width: 428px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    background-color: #3a3a3a;
+    border: 2px solid #303030;
+    border-radius: 5px;
+    margin-bottom: 3px;
+    transition: 0.3s;
+}
+.SubmitOrder:hover{
+    background-color: #303030;
+}
+.SubmitOrder:active{
+    background-color: #2b2b2b;
+}
+
+#moveTextbox{
+    background-color: #181818;
+    border: 2px solid #303030;
+    border-radius: 2px;
+    color: #fff;
+    width: 420px;
+    height: 200px;
+    resize: none;
+    overflow-y: scroll;
+}
+#moveTextbox::-webkit-scrollbar{
+    margin-top: 0;
+    margin-left: 10px;
+    width: 10px;
+}
+#moveTextbox::-webkit-scrollbar-track{
+    border-radius:5px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+}
+#moveTextbox::-webkit-scrollbar-thumb{
+    border-radius:5px;
+    background-color: #969696;
+    transition: 0.3s;
+}
+#moveTextbox::-webkit-scrollbar-thumb:hover{
+    background-color: #7a7a7a;
+    transition: 0.3s;
+}
+
+.map__list.active{
+    width: 100%;
+}
+
+#mainbox{
+    position: fixed;
+    font-size: 24px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    transition: all .5s;
+    width: 20px;
+    background-color: #7c7c7c;
+    border-radius: 15px 5px 5px 15px;
+    color: white;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-family: "Comic Sans MS", "Comic Sans";
+}
+#mainbox:hover{
+    background-color: #646464;
+}
+
+#errorMessage{
+    text-align: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    color: #FF0000;
+    background-color: #969696;
+    border-radius: 3px;
+    margin-right: 30px;
+    transition: 0.5s;
+}
+
+label, h3{
+    color: #E8E8E8;
+}
